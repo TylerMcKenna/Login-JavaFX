@@ -1,0 +1,6 @@
+.label {
+    -fx-background-color: rgba(205,209,228,127);
+    -fx-border-color: rgba(205,100,228,255);
+    -fx-border-radius: 2px;
+    -fx-border-style: dotted;
+}
