@@ -1,6 +1,24 @@
 .label {
-    -fx-background-color: rgba(205,209,228,127);
-    -fx-border-color: rgba(205,100,228,255);
-    -fx-border-radius: 2px;
-    -fx-border-style: dotted;
+    -fx-text-fill: blue;
+}
+
+.password-field {
+    -fx-border-style: none none none solid;
+    -fx-border-color: blue;
+    -fx-background-color: AliceBlue;
+}
+
+.text-field {
+    -fx-border-style: none none none solid;
+    -fx-border-color: blue;
+    -fx-background-color: AliceBlue;
+}
+
+.button {
+    -fx-background-color: blue;
+    -fx-background-radius: 5;
+}
+
+.pane {
+    -fx-background-color: blue;
 }
