@@ -20,12 +20,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        /*
-        Had to do requestFocus() here as at the time of initialize() controls are
-        not yet ready to handle focus.
-        https://stackoverflow.com/questions/12744542/requestfocus-in-textfield-doesnt-work
-        */
-        //btnSigninScreen.requestFocus();
+
     }
 
     public static void main(String[] args) {

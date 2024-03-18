@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.HelloController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.HelloController">
    <children>
       <Group fx:id="groupSignUp" layoutX="84.0" layoutY="79.0">
          <children>
-            <PasswordField layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
-            <TextField layoutX="40.0" layoutY="160.0" promptText="Username" stylesheets="@Label.css" />
-            <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Create Account">
+            <PasswordField fx:id="passFieldSU" layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
+            <TextField fx:id="txtUsernameSU" layoutX="40.0" layoutY="160.0" promptText="Username" stylesheets="@Label.css" />
+            <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Create Account">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -37,7 +32,7 @@
                   <Font size="45.0" />
                </font>
             </Label>
-            <TextField layoutX="40.0" layoutY="103.0" promptText="Email" stylesheets="@Label.css" />
+            <TextField fx:id="txtEmailSU" layoutX="40.0" layoutY="103.0" promptText="Email" stylesheets="@Label.css" />
          </children>
       </Group>
       <Group fx:id="groupSignIn" layoutX="84.0" layoutY="79.0">
@@ -67,6 +62,6 @@
          </children>
       </Group>
       <Button fx:id="btnSigninScreen" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignIn" prefHeight="66.0" prefWidth="200.0" text="Sign In" />
-      <Button fx:id="btnSignupScreen" layoutX="199.0" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignUp" prefHeight="66.0" prefWidth="200.0" text="Sign Up" />
+      <Button layoutX="199.0" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignUp" prefHeight="66.0" prefWidth="200.0" text="Sign Up" />
    </children>
 </AnchorPane>
