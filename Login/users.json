@@ -1,25 +1,16 @@
 [ {
-  "id" : 11,
-  "name" : "[B@4519046f",
-  "nameKey" : "tOxXbpTiJ1dz3ZRD4DPTtgNx+QvB88EGizeu7SwjPUw=",
-  "email" : "[B@7e386e29",
-  "emailKey" : "OBE+pj+8gVaxn8rTKSygGmOiHpyjzgGFHp9mvlomXJs=",
-  "password" : "$2a$10$p5bGV0pMmykFnC2RELxbkuLOrqOUDE5w1MgNd17mkWHl42CDC3zUK",
-  "passwordSalt" : "$2a$10$p5bGV0pMmykFnC2RELxbku"
+  "encryptedUsername" : "jimmy",
+  "hashedPassword" : "$2a$10$UfZTulM10k3RymuQS19Yzen2K1pWrbchWqMw0NuR3wz/sQSmzbmUa",
+  "encryptedEmail" : "1",
+  "salt" : "$2a$10$UfZTulM10k3RymuQS19Yze"
 }, {
-  "id" : 12,
-  "name" : "[B@6f57ee5",
-  "nameKey" : "0k23Gr/EEucYa3QD2qlgesy4Va86V2aniLdA1DsBkKc=",
-  "email" : "[B@17a3d7d",
-  "emailKey" : "w9pdEcKAL0asspbJYRZ98e4V49n7wVqAKbV7BYoGbp8=",
-  "password" : "$2a$10$A2BnDO.t/..nthDuhjPPrO0XcnpAAnPGyc880B2pMrwwD9NlLYf0S",
-  "passwordSalt" : "$2a$10$A2BnDO.t/..nthDuhjPPrO"
+  "encryptedUsername" : "jimmy",
+  "hashedPassword" : "$2a$10$icFrzMdEkyzmV5K4Bwubc.7AS9KJN9lKVsc/Hh97NT9MokG9UJS3W",
+  "encryptedEmail" : "1",
+  "salt" : "$2a$10$icFrzMdEkyzmV5K4Bwubc."
 }, {
-  "id" : 13,
-  "name" : "[B@eb68a7d",
-  "nameKey" : "/sZMBcIYphes5HPwD1UFqjAU89/AgtJ5TB4A3DaLZwM=",
-  "email" : "[B@2319df18",
-  "emailKey" : "hte7Z9yTQDM5ZQcE3QH8QazELSnGNcywhnF2MFtXzqg=",
-  "password" : "$2a$10$pXi1o1676tvSepv8Jndfj.5JjewArbG4soly7ZSDqRSi5Ki4zrZly",
-  "passwordSalt" : "$2a$10$pXi1o1676tvSepv8Jndfj."
+  "encryptedUsername" : "jimmy2",
+  "hashedPassword" : "$2a$10$LM57AF4w2.EFd/d/IzY4veBa8zXhgtqE2lBms1/ksOhBbYG6XFyYC",
+  "encryptedEmail" : "1",
+  "salt" : "$2a$10$LM57AF4w2.EFd/d/IzY4ve"
 } ]
