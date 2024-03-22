@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +34,8 @@ import java.util.*;
 public class HelloController {
     private static final String UNICODE_FORMAT = "UTF-8";
     private static ArrayList<User> userList = new ArrayList<User>();
+    @FXML
+    private Label lblWelcome;
 
     @FXML
     private PasswordField passFieldSU, passFieldSI;
@@ -46,64 +49,38 @@ public class HelloController {
     @FXML
     private Group groupSignIn, groupSignUp;
 
-    // https://stackoverflow.com/questions/32268733/using-jackson-to-manually-parse-json
+    // creates new styleClass for anchorPanes in Label.css
     @FXML
     private void initialize() throws IOException {
-        /*// Sets id to last id in the json file + 1
-        try {
-            JsonParser jsonParser = new JsonFactory().createParser(new File("users.json"));
-
-            int id = 0;
-            while(jsonParser.nextToken() != null) {
-                String name = jsonParser.getCurrentName();
-
-                if ("id".equals(name)) {
-                    jsonParser.nextToken();
-                    id = Integer.parseInt(jsonParser.getText());
-                }
-            }
-            User.setCurrentID(id + 1);
-        } catch (Exception e) {
-        System.out.println("I'm cooked");
-        e.printStackTrace();
-        System.exit(0);
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        File file = new File("users.json");
-
-        List<User> employeeList = objectMapper.readValue(file, new TypeReference<>(){});
-*/
         anchorPane.getStyleClass().add("pane");
         groupSignUp.setVisible(false);
 
     }
 
+    // changes page
     @FXML
     private void loadSignIn() {
         groupSignUp.setVisible(false);
         groupSignIn.setVisible(true);
     }
 
+    // changes page
     @FXML
     private void loadSignUp() {
         groupSignIn.setVisible(false);
         groupSignUp.setVisible(true);
     }
 
+    // On sign in pressed, loads the JSON user file and tests if the entered information matches an account
     public void signInPressed(ActionEvent actionEvent) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
         User[] users = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String json = "users.json".toString();
             users = objectMapper.readValue(new File("users.json"), User[].class);
-            System.out.println(Arrays.toString(users));
         } catch (JsonProcessingException e) {
-            System.out.println("I'm cooked");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("I'm cooked #2");
             throw new RuntimeException(e);
         }
 
@@ -112,14 +89,17 @@ public class HelloController {
             if (Objects.equals(User.decryptString(users[i].getEncryptedEmail(), users[i].getKey(), cipher), txtEmailSI.getText())) {
                 User temp = new User(users[i].getKey(), "noName", passFieldSI.getText(), txtEmailSI.getText(), users[i].getSalt());
                 if (Objects.equals(temp.getHashedPassword(), users[i].getHashedPassword())) {
-                    System.out.println("LETS GO!");
+                    lblWelcome.setText("Login Successful, hello " + User.decryptString(users[i].getEncryptedUsername(), users[i].getKey(), cipher) + "!");
                 } else {
-                    System.out.println("You're done.");
+                    lblWelcome.setText("Login failed.");
                 }
+                lblWelcome.setVisible(true);
             }
         }
     }
 
+    // https://stackoverflow.com/questions/32268733/using-jackson-to-manually-parse-json
+    // On sign up pressed adds user to json list from UI fields
     public void signUpPressed(ActionEvent actionEvent) throws IOException {
         userList.add(new User(txtUsernameSU.getText(), passFieldSU.getText(), txtEmailSU.getText()));
 

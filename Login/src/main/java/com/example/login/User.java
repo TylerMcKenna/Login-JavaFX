@@ -15,9 +15,11 @@ public class User {
     public String key;
     private static final String UNICODE_FORMAT = "UTF-8";
 
+    // Used by json mapper to convert json to an object
     public User() {
     }
 
+    // Used to make new users in json list
     public User(String username, String password, String email) {
         try {
             key = generateKey("AES");
@@ -33,6 +35,7 @@ public class User {
         this.hashedPassword = hash(password);
     }
 
+    // Used by json mapper to convert json to an object
     public User(String key, String username, String password, String email, String salt) {
         try {
             this.key = key;
@@ -45,10 +48,12 @@ public class User {
         }
     }
 
+    // Simple password hashing using salt made in constructor
     private String hash(String password) {
         return BCrypt.hashpw(password, salt);
     }
 
+    //https://www.youtube.com/watch?v=nzUealgF0hs
     private String generateKey(String encryptionType) {
             try {
                 SecretKey myKey = KeyGenerator.getInstance(encryptionType).generateKey();
@@ -59,6 +64,8 @@ public class User {
             }
     }
 
+    //encrypts with key made in constructor
+    //https://www.youtube.com/watch?v=nzUealgF0hs
     private byte[] encryptString(String dataToEncrypt, String myKey, Cipher cipher) {
         try {
             SecretKey key = convertStringToKey(myKey);
@@ -73,6 +80,8 @@ public class User {
         }
     }
 
+    //decrypts with key made in constructor
+    //https://www.youtube.com/watch?v=nzUealgF0hs
     public static String decryptString(byte[] dataToDecrypt, String myKey, Cipher cipher) {
         try {
             SecretKey key = convertStringToKey(myKey);
@@ -87,7 +96,6 @@ public class User {
         }
     }
 
-    // good
     public byte[] getEncryptedUsername() {
         return encryptedUsername;
     }
@@ -108,12 +116,16 @@ public class User {
         return key;
     }
 
+    //Utility method to convert string key to its SecretKey form
+    //https://stackoverflow.com/questions/5355466/converting-secret-key-into-a-string-and-vice-versa#comment78278108_5355466
     public static SecretKey convertStringToKey(String encodedKey) {
         byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         return originalKey;
     }
 
+    //Utility method to convert SecretKey to a String
+    //https://stackoverflow.com/questions/5355466/converting-secret-key-into-a-string-and-vice-versa#comment78278108_5355466
     public static String convertKeytostring(SecretKey key) {
         String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
         return encodedKey;
