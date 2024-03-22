@@ -38,7 +38,7 @@
       <Group fx:id="groupSignIn" layoutX="84.0" layoutY="79.0">
          <children>
             <PasswordField fx:id="passFieldSI" layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
-            <TextField fx:id="txtUsernameSI" layoutX="40.0" layoutY="160.0" promptText="Username" stylesheets="@Label.css" />
+            <TextField fx:id="txtEmailSI" layoutX="40.0" layoutY="160.0" promptText="Email" stylesheets="@Label.css" />
             <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" onAction="#signInPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Login">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -62,6 +62,6 @@
          </children>
       </Group>
       <Button fx:id="btnSigninScreen" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignIn" prefHeight="66.0" prefWidth="200.0" text="Sign In" />
-      <Button layoutX="199.0" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignUp" prefHeight="66.0" prefWidth="200.0" text="Sign Up" />
+      <Button fx:id="btnSignupScreen" layoutX="199.0" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignUp" prefHeight="66.0" prefWidth="200.0" text="Sign Up" />
    </children>
 </AnchorPane>

@@ -1,16 +1,7 @@
 [ {
-  "encryptedUsername" : "jimmy",
-  "hashedPassword" : "$2a$10$UfZTulM10k3RymuQS19Yzen2K1pWrbchWqMw0NuR3wz/sQSmzbmUa",
-  "encryptedEmail" : "1",
-  "salt" : "$2a$10$UfZTulM10k3RymuQS19Yze"
-}, {
-  "encryptedUsername" : "jimmy",
-  "hashedPassword" : "$2a$10$icFrzMdEkyzmV5K4Bwubc.7AS9KJN9lKVsc/Hh97NT9MokG9UJS3W",
-  "encryptedEmail" : "1",
-  "salt" : "$2a$10$icFrzMdEkyzmV5K4Bwubc."
-}, {
-  "encryptedUsername" : "jimmy2",
-  "hashedPassword" : "$2a$10$LM57AF4w2.EFd/d/IzY4veBa8zXhgtqE2lBms1/ksOhBbYG6XFyYC",
-  "encryptedEmail" : "1",
-  "salt" : "$2a$10$LM57AF4w2.EFd/d/IzY4ve"
+  "hashedPassword" : "$2a$10$obFJgbT0R6LYuZemgFjx3O3alNmCJ0Jkb7nGmn7Sw5U1nEkY8VPH.",
+  "salt" : "$2a$10$obFJgbT0R6LYuZemgFjx3O",
+  "encryptedUsername" : "mVML2T/eXCtDHPRrTZ/zYw==",
+  "encryptedEmail" : "ukrRRWLDtXu86KJ8HVZ4rA==",
+  "key" : "9/nsB/PX+/NoITMuUH7WVl0F5GxhOjBafec7aRKU4go="
 } ]

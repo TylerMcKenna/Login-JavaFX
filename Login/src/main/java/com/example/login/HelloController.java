@@ -16,23 +16,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 public class HelloController {
+    private static final String UNICODE_FORMAT = "UTF-8";
     private static ArrayList<User> userList = new ArrayList<User>();
 
     @FXML
     private PasswordField passFieldSU, passFieldSI;
 
     @FXML
-    private TextField txtUsernameSU, txtEmailSU, txtUsernameSI;
+    private TextField txtUsernameSU, txtEmailSU, txtEmailSI;
 
     @FXML
     private AnchorPane anchorPane;
@@ -86,7 +92,7 @@ public class HelloController {
         groupSignUp.setVisible(true);
     }
 
-    public void signInPressed(ActionEvent actionEvent) {
+    public void signInPressed(ActionEvent actionEvent) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
         User[] users = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -102,10 +108,13 @@ public class HelloController {
         }
 
         for (int i = 0; i < users.length; i++) {
-            User temp = new User(txtUsernameSI.getText(), passFieldSI.getText(), null, users[i].getSalt());
-            if (Objects.equals(temp.getEncryptedUsername(),users[i].getEncryptedUsername())) {
+            Cipher cipher = Cipher.getInstance("AES");
+            if (Objects.equals(User.decryptString(users[i].getEncryptedEmail(), users[i].getKey(), cipher), txtEmailSI.getText())) {
+                User temp = new User(users[i].getKey(), "noName", passFieldSI.getText(), txtEmailSI.getText(), users[i].getSalt());
                 if (Objects.equals(temp.getHashedPassword(), users[i].getHashedPassword())) {
                     System.out.println("LETS GO!");
+                } else {
+                    System.out.println("You're done.");
                 }
             }
         }

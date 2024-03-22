@@ -3,48 +3,120 @@ package com.example.login;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.mindrot.jbcrypt.BCrypt;
 
-public class User {
-    public String encryptedUsername, hashedPassword, encryptedEmail, salt;
-/*[ {
-  "encryptedUsername" : null,
-  "hashedPassword" : "$2a$10$zCXQSGiJbH/I0fp36cJA6u5eZ8FH9NNddZ7uVx/DvWYD9q2wPjeDW",
-  "encryptedEmail" : null,
-  "salt" : "$2a$10$zCXQSGiJbH/I0fp36cJA6u"
-}
-  {
-  "encryptedUsername" : null,
-  "hashedPassword" : "$2a$10$dME2/DzRTte8WvKBcp7ZcuJzttxbaIaq8XcXuu95kOSmlz.yx2sPW",
-  "encryptedEmail" : null,
-  "salt" : "$2a$10$dME2/DzRTte8WvKBcp7Zcu"
-} ]*/
-    public User() {
+import java.util.Base64;
 
+public class User {
+    public String hashedPassword, salt;
+    public byte[] encryptedUsername, encryptedEmail;
+    public String key;
+    private static final String UNICODE_FORMAT = "UTF-8";
+
+    public User() {
     }
 
     public User(String username, String password, String email) {
-        this.encryptedUsername = username;
+        try {
+            key = generateKey("AES");
+            Cipher cipher = Cipher.getInstance("AES");
+            this.encryptedUsername = encryptString(username, key, cipher);
+            this.encryptedEmail = encryptString(email, key, cipher);
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.encryptedUsername = null;
+            this.encryptedEmail = null;
+        }
         this.salt = BCrypt.gensalt(10);
         this.hashedPassword = hash(password);
-        this.encryptedEmail = email;
     }
 
-    public User(String username, String password, String email, String salt) {
-        this.encryptedUsername = username;
-        this.salt = salt;
-        this.hashedPassword = hash(password);
-        this.encryptedEmail = email;
+    public User(String key, String username, String password, String email, String salt) {
+        try {
+            this.key = key;
+            this.encryptedUsername = username.getBytes(UNICODE_FORMAT);
+            this.salt = salt;
+            this.hashedPassword = hash(password);
+            this.encryptedEmail = email.getBytes(UNICODE_FORMAT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String hash(String password) {
         return BCrypt.hashpw(password, salt);
     }
 
-    // How to use idk yet
-    public boolean checkPassword(String password) {
-        //return BCrypt.hashpw()
-        return true;
+    private String generateKey(String encryptionType) {
+            try {
+                SecretKey myKey = KeyGenerator.getInstance(encryptionType).generateKey();
+                return convertKeytostring(myKey);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+    }
+
+    private byte[] encryptString(String dataToEncrypt, String myKey, Cipher cipher) {
+        try {
+            SecretKey key = convertStringToKey(myKey);
+
+            byte[] text = dataToEncrypt.getBytes(UNICODE_FORMAT);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] textEncrypted = cipher.doFinal(text);
+            return textEncrypted;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String decryptString(byte[] dataToDecrypt, String myKey, Cipher cipher) {
+        try {
+            SecretKey key = convertStringToKey(myKey);
+
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] textDecrypted = cipher.doFinal(dataToDecrypt);
+            String result = new String(textDecrypted);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // good
+    public byte[] getEncryptedUsername() {
+        return encryptedUsername;
+    }
+
+    public String getHashedPassword() {
+        return hashedPassword;
+    }
+
+    public byte[] getEncryptedEmail() {
+        return encryptedEmail;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public static SecretKey convertStringToKey(String encodedKey) {
+        byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+        SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+        return originalKey;
+    }
+
+    public static String convertKeytostring(SecretKey key) {
+        String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
+        return encodedKey;
     }
 
     @Override
@@ -55,21 +127,5 @@ public class User {
                 ", encryptedEmail='" + encryptedEmail + '\'' +
                 ", salt='" + salt + '\'' +
                 '}';
-    }
-
-    public String getEncryptedUsername() {
-        return encryptedUsername;
-    }
-
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
-
-    public String getEncryptedEmail() {
-        return encryptedEmail;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 }
